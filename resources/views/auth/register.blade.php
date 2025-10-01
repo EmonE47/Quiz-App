@@ -12,7 +12,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-header bg-success text-white">
-                        <h3 class="mb-0">Register for Quiz App</h3>
+                        <h3 class="mb-0">Student Register for Quiz App</h3>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
@@ -72,7 +72,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-success w-100">Register</button>
+                            <button type="submit" class="btn btn-success w-100">Register as Student</button>
                         </form>
                         <div class="mt-3 text-center">
                             <a href="{{ route('login') }}" class="text-decoration-none">Already have an account? Login here</a>

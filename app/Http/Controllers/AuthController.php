@@ -23,7 +23,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'), $request->remember)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            $user = Auth::user();
+            if ($user->role == 1) {
+                 return view('teacher_dashboard');
+            } else {
+                 return view('Student_Dashboard');
+            }
         }
 
         return back()->withErrors([
@@ -48,11 +53,37 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 2, // student
         ]);
 
         Auth::login($user);
 
-        return redirect('/');
+        return view('auth.login');
+    }
+
+    public function showTeacherRegister()
+    {
+        return view('auth.teacher-register');
+    }
+
+    public function registerTeacher(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 1, // teacher
+        ]);
+
+        Auth::login($user);
+
+        return view('auth.login');
     }
 
     public function logout(Request $request)

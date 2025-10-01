@@ -52,7 +52,8 @@
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
                         <div class="mt-3 text-center">
-                            <a href="{{ route('register') }}" class="text-decoration-none">Don't have an account? Register here</a>
+                            <a href="{{ route('register') }}" class="btn btn-success me-2">Student Register</a>
+                            <a href="{{ route('teacher.register') }}" class="btn btn-info">Teacher Register</a>
                         </div>
                     </div>
                 </div>
