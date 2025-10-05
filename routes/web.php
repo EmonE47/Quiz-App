@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QuestionController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -16,3 +17,15 @@ Route::post('/teacher-register', [AuthController::class, 'registerTeacher']);
 Route::get('/teacher-dashboard', [AuthController::class, 'showTeacherDashboard'])->name('teacher.dashboard');
 Route::get('/student-dashboard', [AuthController::class, 'showStudentDashboard'])->name('student.dashboard');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//Soykot
+// Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
+    Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
+});
+
+Route::get('/teacher-dashboard', function () {
+    return view('teacher_dashboard');
+})->middleware('auth')->name('teacher_dashboard');
+//ending
