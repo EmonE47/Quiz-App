@@ -28,6 +28,6 @@ class QuestionController extends Controller
         $question->user_id = auth()->id();
         $question->save();
 
-        return redirect()->route('teacher.dashboard')->with('success', 'Question created successfully!');
+        return redirect()->route('teacher_dashboard')->with('success', 'Question created successfully!');
     }
 }

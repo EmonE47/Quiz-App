@@ -22,4 +22,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
     Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
 });
+
+Route::get('/teacher-dashboard', function () {
+    return view('teacher_dashboard');
+})->middleware('auth')->name('teacher_dashboard');
 //ending
