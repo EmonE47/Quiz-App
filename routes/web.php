@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QuestionController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -14,3 +15,11 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/teacher-register', [AuthController::class, 'showTeacherRegister'])->name('teacher.register');
 Route::post('/teacher-register', [AuthController::class, 'registerTeacher']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//Soykot
+// Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
+    Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
+});
+//ending
