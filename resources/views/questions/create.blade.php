@@ -42,7 +42,13 @@
 
                             <div class="mb-3">
                                 <label for="correct_answer" class="form-label">Correct Answer</label>
-                                <input type="text" class="form-control" id="correct_answer" name="correct_answer" required>
+                                <select class="form-control" id="correct_answer" name="correct_answer" required>
+                                    <option value="">Select correct answer</option>
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                    <option value="4">Option 4</option>
+                                </select>
                             </div>
 
                             <div class="d-flex justify-content-between">
