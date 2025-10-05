@@ -25,17 +25,26 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             if ($user->role == 1) {
-                 return view('teacher_dashboard');
-            } else {
-                 return view('Student_Dashboard');
+                return redirect()->intended('/teacher-dashboard');
+            } elseif ($user->role == 2) {
+                return redirect()->intended('/student-dashboard');
             }
+            return redirect()->intended('/login');
+            
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
-
+    public function showTeacherDashboard()
+    {
+        return view('teacher_dashboard');
+    }
+    public function showStudentDashboard()
+    {
+        return view('student_dashboard');
+    }
     public function showRegister()
     {
         return view('auth.register');
