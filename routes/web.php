@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\PaperController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -23,9 +24,17 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
     Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
+    Route::post('/papers', [PaperController::class, 'store'])->name('paper.store');
 });
 
 Route::get('/teacher-dashboard', function () {
     return view('teacher_dashboard');
 })->middleware('auth')->name('teacher_dashboard');
+
+// Route::middleware(['auth'])->group(function () {
+//     // ...existing routes...
+//     Route::post('/papers', [PaperController::class, 'store'])->name('paper.store');
+// });
+
+
 //ending
