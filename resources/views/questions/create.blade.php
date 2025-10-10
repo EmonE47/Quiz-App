@@ -11,13 +11,18 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">
-                        <h3>Create New Question</h3>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3>Create Question</h3>
+                        <div class="progress-info">
+                            <span class="badge bg-primary">
+                                Question {{ $currentCount + 1 }} of {{ $paper->total_mcqs }}
+                            </span>
+                        </div>
                     </div>
                     <div class="card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger">
-                                <ul>
+                                <ul class="mb-0">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
@@ -25,19 +30,29 @@
                             </div>
                         @endif
 
+                        <div class="alert alert-info">
+                            Adding questions for: {{ $paper->paper_name }}
+                            <br>
+                            Remaining questions: {{ $remainingQuestions }}
+                        </div>
+
                         <form method="POST" action="{{ route('questions.store') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="question_text" class="form-label">Question Text</label>
-                                <textarea class="form-control" id="question_text" name="question_text" rows="3" required></textarea>
+                                <textarea class="form-control" id="question_text" name="question_text" rows="3" required>{{ old('question_text') }}</textarea>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Options</label>
-                                <input type="text" class="form-control mb-2" name="options[]" placeholder="Option 1" required>
-                                <input type="text" class="form-control mb-2" name="options[]" placeholder="Option 2" required>
-                                <input type="text" class="form-control mb-2" name="options[]" placeholder="Option 3" required>
-                                <input type="text" class="form-control mb-2" name="options[]" placeholder="Option 4" required>
+                                @for ($i = 0; $i < 4; $i++)
+                                    <input type="text" 
+                                           class="form-control mb-2" 
+                                           name="options[]" 
+                                           placeholder="Option {{ $i + 1 }}" 
+                                           value="{{ old('options.'.$i) }}"
+                                           required>
+                                @endfor
                             </div>
 
                             <div class="mb-3">
@@ -52,8 +67,14 @@
                             </div>
 
                             <div class="d-flex justify-content-between">
-                                <a href="" class="btn btn-secondary">Back</a>
-                                <button type="submit" class="btn btn-primary">Create Question</button>
+                                <a href="{{ route('teacher_dashboard') }}" class="btn btn-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-primary">
+                                    @if($remainingQuestions == 1)
+                                        Add Final Question
+                                    @else
+                                        Add Question
+                                    @endif
+                                </button>
                             </div>
                         </form>
                     </div>

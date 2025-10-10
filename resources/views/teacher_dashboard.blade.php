@@ -42,13 +42,41 @@
             </form>
         </div>
 
-        <!-- Welcome Message -->
-        <div class="alert alert-info">
-            Welcome, {{ auth()->user()->name }}!
+        <!-- Messages Section -->
+        <div class="messages mb-4">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <div class="alert alert-info">
+                Welcome, {{ auth()->user()->name }}!
+            </div>
         </div>
 
         <!-- Main Actions -->
         <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quiz Management</h5>
+                        <p class="card-text">Create and manage your quiz questions here.</p>
+                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paperDetailsModal">
+                            <i class="bi bi-plus-circle"></i> Create Question Paper
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4 flex">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
