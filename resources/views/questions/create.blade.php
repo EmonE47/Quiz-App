@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Question - Quiz App</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/questions-create.css') }}" rel="stylesheet" />
 </head>
 <body class="bg-light">
     <div class="container mt-5">
