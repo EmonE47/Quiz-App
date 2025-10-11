@@ -86,7 +86,6 @@ class QuestionController extends Controller
             '3' => 'c',
             '4' => 'd',
         };
-        $question->user_id = auth()->id();
         $question->paper_id = $paper_id;
         $question->save();
 

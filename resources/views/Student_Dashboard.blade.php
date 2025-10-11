@@ -88,12 +88,12 @@
                                     <div class="card-header bg-primary text-white">
                                         <h5 class="mb-0">{{ $paper->paper_name }}</h5>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body" data-exam-timestamp="{{ $paper->exam_datetime->timestamp }}">
                                         <p><strong>Total Questions:</strong> {{ $paper->questions_count }}</p>
                                         <p><strong>Total Marks:</strong> {{ $paper->total_marks }}</p>
                                         <p><strong>Duration:</strong> {{ $paper->duration }} minutes</p>
                                         <p><strong>Exam Date & Time:</strong> {{ $paper->exam_datetime->format('d M Y, h:i A') }}</p>
-                                        
+
                                         @php
                                             $isEnrolled = $paper->enrollments()->where('user_id', $student->id)->exists();
                                             $hasCompleted = \App\Models\Result::where('user_id', $student->id)
@@ -131,12 +131,12 @@
                                     <div class="card-header bg-info text-white">
                                         <h5 class="mb-0">{{ $paper->paper_name }}</h5>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body" data-exam-timestamp="{{ $paper->exam_datetime->timestamp }}" data-exam-link="{{ route('student.exam', $paper->id) }}">
                                         <p><strong>Total Questions:</strong> {{ $paper->questions_count }}</p>
                                         <p><strong>Total Marks:</strong> {{ $paper->total_marks }}</p>
                                         <p><strong>Duration:</strong> {{ $paper->duration }} minutes</p>
                                         <p><strong>Exam Date & Time:</strong> {{ $paper->exam_datetime->format('d M Y, h:i A') }}</p>
-                                        
+
                                         @php
                                             $hasCompleted = \App\Models\Result::where('user_id', $student->id)
                                                 ->where('paper_id', $paper->id)->exists();
@@ -210,5 +210,28 @@
     </div>
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateExamStatus() {
+                const now = new Date();
+                document.querySelectorAll('[data-exam-timestamp]').forEach(function(card) {
+                    const examTime = new Date(parseInt(card.getAttribute('data-exam-timestamp')) * 1000);
+                    if (now >= examTime) {
+                        if (card.closest('.tab-pane').id === 'enrolled') {
+                            const btn = card.querySelector('button[disabled]');
+                            if (btn && btn.textContent.trim() === 'Exam Not Started Yet') {
+                                const link = card.getAttribute('data-exam-link');
+                                btn.outerHTML = '<a href="' + link + '" class="btn btn-success w-100">Start Exam</a>';
+                            }
+                        } else if (card.closest('.tab-pane').id === 'available') {
+                            card.closest('.col-md-6').style.display = 'none';
+                        }
+                    }
+                });
+            }
+            updateExamStatus();
+            setInterval(updateExamStatus, 1000); // check every second
+        });
+    </script>
 </body>
 </html>
