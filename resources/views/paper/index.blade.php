@@ -50,16 +50,10 @@
                                 <td>{{ $paper->total_mcqs }}</td>
                                 <td>{{ $paper->exam_datetime->format('M d, Y h:i A') }}</td>
                                 <td>
-                                    @if($paper->questions_count < $paper->total_mcqs)
-                                        <form action="{{ route('questions.create') }}" method="POST" class="d-inline">
-                                            @csrf
-                                            <input type="hidden" name="paper_id" value="{{ $paper->id }}">
-                                            <button type="submit" class="btn btn-sm btn-primary">
-                                                Add Questions
-                                            </button>
-                                        </form>
-                                    @endif
-                                    <a href="{{ route('papers.show', $paper) }}" class="btn btn-sm btn-info">View Paper</a>
+                                    <a href="{{ route('papers.show', $paper) }}" class="btn btn-sm btn-info me-2">View Paper</a>
+                                    <a href="{{ route('papers.scoreboard', $paper->id) }}" class="btn btn-sm btn-success">
+                                        View Scoreboard
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
