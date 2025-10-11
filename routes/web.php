@@ -32,9 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/papers/{paper}', [PaperController::class, 'show'])->name('papers.show');
 });
 
-Route::get('/teacher-dashboard', function () {
-    return view('teacher_dashboard');
-})->middleware('auth')->name('teacher_dashboard');
+Route::get('/teacher-dashboard', [AuthController::class, 'showTeacherDashboard'])->middleware('auth')->name('teacher_dashboard');
 
 
  Route::get('/papers', [PaperController::class, 'index'])->name('papers.index');
