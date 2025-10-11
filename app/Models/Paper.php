@@ -21,4 +21,24 @@ class Paper extends Model
     protected $casts = [
         'exam_datetime' => 'datetime'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
 }
