@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PaperController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ResultController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -31,9 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/papers/{paper}', [PaperController::class, 'show'])->name('papers.show');
 });
 
-Route::get('/teacher-dashboard', function () {
-    return view('teacher_dashboard');
-})->middleware('auth')->name('teacher_dashboard');
+Route::get('/teacher-dashboard', [AuthController::class, 'showTeacherDashboard'])->middleware('auth')->name('teacher_dashboard');
 
 
  Route::get('/papers', [PaperController::class, 'index'])->name('papers.index');
@@ -64,3 +63,6 @@ Route::middleware(['auth'])->group(function () {
     // Result Route
     Route::get('/result/{paper}', [StudentController::class, 'showResult'])->name('student.result');
 });
+
+Route::get('/papers/{paper}/scoreboard', [App\Http\Controllers\ResultController::class, 'showScoreboard'])
+    ->name('papers.scoreboard');

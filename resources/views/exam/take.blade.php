@@ -89,7 +89,12 @@
                         <p class="lead">{{ $question->question_text }}</p>
                         
                         @php
-                            $options = json_decode($question->options, true);
+                            $options = [
+                                        'a' => $question->option_a,
+                                        'b' => $question->option_b,
+                                        'c' => $question->option_c,
+                                        'd' => $question->option_d,
+                                    ];
                         @endphp
                         
                         <div class="options-container">
@@ -97,9 +102,9 @@
                                 <label class="option-label d-block">
                                     <input type="radio" 
                                            name="question_{{ $question->id }}" 
-                                           value="{{ $key + 1 }}"
+                                           value="{{ $key }}"
                                            class="me-2">
-                                    <span><strong>{{ chr(65 + $key) }}.</strong> {{ $option }}</span>
+                                    <span><strong>{{ $key }}.</strong> {{ $option }}</span>
                                 </label>
                             @endforeach
                         </div>

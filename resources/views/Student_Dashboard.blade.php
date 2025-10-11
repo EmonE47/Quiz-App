@@ -137,11 +137,19 @@
                                         <p><strong>Duration:</strong> {{ $paper->duration }} minutes</p>
                                         <p><strong>Exam Date & Time:</strong> {{ $paper->exam_datetime->format('d M Y, h:i A') }}</p>
                                         
-                                        @php
+                                       
+                                                @php
                                             $hasCompleted = \App\Models\Result::where('user_id', $student->id)
                                                 ->where('paper_id', $paper->id)->exists();
-                                            $examStarted = $paper->exam_datetime->isPast();
-                                        @endphp
+                                            
+                                            // Convert both times to same timezone and format with AM/PM, then compare as strings
+                                            $current = now('Asia/Dhaka')->format('Y-m-d h:i A');
+                                            $exam = $paper->exam_datetime->format('Y-m-d h:i A'); // UTC time from database
+                                              $examStarted = $current >= $exam;
+
+                                                  // Debug output (you can remove this after testing)
+                                            // echo "<small class='text-muted d-block'>Debug: Current($current) >= Exam($exam) = " . ($examStarted ? 'true' : 'false') . "</small>";
+                                                @endphp
 
                                         @if($hasCompleted)
                                             <a href="{{ route('student.result', $paper->id) }}" class="btn btn-primary w-100">
@@ -194,8 +202,8 @@
                                         <p><strong>Total Marks:</strong> {{ $result->total_marks }}</p>
                                         <p><strong>Completed On:</strong> {{ $result->created_at->format('d M Y, h:i A') }}</p>
                                         
-                                        <a href="{{ route('student.result', $result->paper_id) }}" class="btn btn-primary w-100 mt-2">
-                                            View Detailed Result
+                                        <a href="{{ route('papers.scoreboard', $result->paper_id) }}" class="btn btn-primary w-100 mt-2">
+                                            View Scoreboard
                                         </a>
                                     </div>
                                 </div>

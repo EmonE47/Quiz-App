@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paper;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PaperController extends Controller
 {
@@ -16,6 +17,9 @@ class PaperController extends Controller
             'total_mcqs' => 'required|integer|min:1',
             'exam_datetime' => 'required|date|after:now',
         ]);
+
+        // Convert exam_datetime from Bangladesh time to UTC for storage
+        $validated['exam_datetime'] = Carbon::parse($validated['exam_datetime'], 'Asia/Dhaka')->utc();
 
         $paper = new Paper($validated);
         $paper->user_id = auth()->id();
@@ -47,4 +51,15 @@ class PaperController extends Controller
 
         return view('paper.show', compact('paper'));
     }
+
+    public function scoreboard($paper_id)
+    {
+        $paper = \App\Models\Paper::with('results.student')->findOrFail($paper_id);
+
+        // Sort results by score descending
+        $results = $paper->results->sortByDesc('score');
+
+        return view('paper.scoreboard', compact('paper', 'results'));
+    }
+
 }
