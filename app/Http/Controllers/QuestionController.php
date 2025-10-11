@@ -25,7 +25,7 @@ class QuestionController extends Controller
         }
 
         // Calculate current count and remaining questions
-        $currentCount = Question::where('paper_id', $paper_id)->count();
+        $currentCount = Question::where('id', $paper_id)->count();
         $remainingQuestions = $paper->total_mcqs - $currentCount;
 
         // Redirect if all questions are added
@@ -56,7 +56,7 @@ class QuestionController extends Controller
         }
 
         // Check remaining questions
-        $currentCount = Question::where('paper_id', $paper_id)->count();
+        $currentCount = Question::where('id', $paper_id)->count();
         $remainingQuestions = $paper->total_mcqs - $currentCount;
 
         if ($remainingQuestions <= 0) {
@@ -76,8 +76,16 @@ class QuestionController extends Controller
         // Create and save the question
         $question = new Question();
         $question->question_text = $validated['question_text'];
-        $question->options = json_encode($validated['options']);
-        $question->correct_answer = $validated['correct_answer'];
+        $question->option_a = $validated['options'][0];
+        $question->option_b = $validated['options'][1];
+        $question->option_c = $validated['options'][2];
+        $question->option_d = $validated['options'][3];
+        $question->correct_answer = match ($validated['correct_answer']) {
+            '1' => 'a',
+            '2' => 'b',
+            '3' => 'c',
+            '4' => 'd',
+        };
         $question->user_id = auth()->id();
         $question->paper_id = $paper_id;
         $question->save();
@@ -98,7 +106,7 @@ class QuestionController extends Controller
     {
         $paper_id = session('current_paper_id');
         if ($paper_id) {
-            $questions = Question::where('paper_id', $paper_id)
+            $questions = Question::where('id', $paper_id)
                 ->orderBy('created_at', 'desc')
                 ->get();
             return view('questions.index', compact('questions'));

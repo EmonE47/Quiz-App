@@ -140,7 +140,7 @@
                                         @php
                                             $hasCompleted = \App\Models\Result::where('user_id', $student->id)
                                                 ->where('paper_id', $paper->id)->exists();
-                                            $examStarted = $paper->exam_datetime <= now();
+                                            $examStarted = $paper->exam_datetime->isPast();
                                         @endphp
 
                                         @if($hasCompleted)
