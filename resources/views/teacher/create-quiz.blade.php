@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-<link href="{{ asset('css/teacher-create-quiz.css') }}" rel="stylesheet" />
-@endsection
-
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">

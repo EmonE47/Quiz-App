@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $paper->paper_name }} - Quiz App</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/paper-show.css') }}" rel="stylesheet" />
 </head>
 <body class="bg-light">
     <div class="container mt-5">

@@ -5,7 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Result - {{ $paper->paper_name }}</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/exam-result.css') }}" rel="stylesheet" />
+    <style>
+        .result-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .correct-answer {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        .wrong-answer {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        .answer-badge {
+            font-size: 0.9rem;
+            padding: 5px 15px;
+        }
+    </style>
 </head>
 <body class="bg-light">
     <div class="container mt-5 mb-5">

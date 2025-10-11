@@ -5,7 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Take Exam - {{ $paper->paper_name }}</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/exam-take.css') }}" rel="stylesheet" />
+    <style>
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #dc3545;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .question-card {
+            margin-bottom: 30px;
+            border-left: 4px solid #007bff;
+        }
+        .option-label {
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        .option-label:hover {
+            background-color: #f8f9fa;
+            border-color: #007bff;
+        }
+        .option-label input[type="radio"]:checked + span {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .sticky-submit {
+            position: sticky;
+            bottom: 20px;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body class="bg-light">
     <!-- Timer -->

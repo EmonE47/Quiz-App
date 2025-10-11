@@ -5,7 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Teacher Register - Quiz App</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/auth-teacher-register.css') }}" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #1cc88a;
+            --accent-color: #36b9cc;
+            --teacher-primary: #127dffff;
+            --teacher-secondary: #3ef6daff;
+            --light-bg: #f8f9fc;
+            --dark-text: #5a5c69;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f5 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .register-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        
+        .register-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .register-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--teacher-primary) 0%, var(--teacher-secondary) 100%);
+            border-bottom: none;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+        }
+        
+        .card-header h3 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .card-header p {
+            margin-bottom: 0;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .card-body {
+            padding: 2.5rem;
+            background-color: white;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e3e6f0;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--teacher-primary);
+            box-shadow: 0 0 0 0.2rem rgba(231, 74, 59, 0.25);
+        }
+        
+        .btn-register {
+            background: linear-gradient(135deg, var(--teacher-primary) 0%, #c5301c 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 74, 59, 0.4);
+        }
+        
+        .login-link {
+            color: var(--teacher-primary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .login-link:hover {
+            color: #c5301c;
+        }
+        
+        .input-icon {
+            position: relative;
+        }
+        
+        .input-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b7b9cc;
+        }
+        
+        .input-icon input {
+            padding-left: 45px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e3e6f0;
+        }
+        
+        .divider-text {
+            padding: 0 1rem;
+            color: #b7b9cc;
+            font-size: 0.875rem;
+        }
+        
+        .app-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            color: var(--dark-text);
+        }
+        
+        .feature-list i {
+            color: var(--teacher-primary);
+            margin-right: 0.5rem;
+        }
+        
+        .teacher-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+            display: block;
+        }
+        
+        .role-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .register-container {
+                padding: 10px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+            
+            .card-header {
+                padding: 1.5rem;
+            }
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
