@@ -202,8 +202,8 @@
                                         <p><strong>Total Marks:</strong> {{ $result->total_marks }}</p>
                                         <p><strong>Completed On:</strong> {{ $result->created_at->format('d M Y, h:i A') }}</p>
                                         
-                                        <a href="{{ route('student.result', $result->paper_id) }}" class="btn btn-primary w-100 mt-2">
-                                            View Detailed Result
+                                        <a href="{{ route('papers.scoreboard', $result->paper_id) }}" class="btn btn-primary w-100 mt-2">
+                                            View Scoreboard
                                         </a>
                                     </div>
                                 </div>
