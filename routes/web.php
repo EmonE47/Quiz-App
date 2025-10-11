@@ -33,14 +33,9 @@ Route::get('/teacher-dashboard', function () {
     return view('teacher_dashboard');
 })->middleware('auth')->name('teacher_dashboard');
 
-Route::get('/teacher-dashboard', function () {
-    return view('teacher_dashboard');
-})->middleware('auth')->name('teacher.dashboard');
-
 
  Route::get('/papers', [PaperController::class, 'index'])->name('papers.index');
 
-//  // Teacher Routes (Protected)
 // Route::middleware(['auth'])->group(function () {
 //     Route::get('/teacher-dashboard', [AuthController::class, 'showTeacherDashboard'])->name('teacher.dashboard');
     
