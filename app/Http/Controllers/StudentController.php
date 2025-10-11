@@ -89,10 +89,10 @@ class StudentController extends Controller
             return redirect()->route('student.dashboard')->with('error', 'You have already completed this exam.');
         }
         
-        // Check if exam time has arrived
-        if ($paper->exam_datetime > now()) {
-            return redirect()->route('student.dashboard')->with('error', 'The exam has not started yet.');
-        }
+        // Check if exam time has arrived (using Bangladesh time)
+        // if ($paper->exam_datetime > now()->subHours(0)) {
+        //     return redirect()->route('student.dashboard')->with('error', 'The exam has not started yet.');
+        // }
         
         return view('exam.take', compact('paper', 'student'));
     }
