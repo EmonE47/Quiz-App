@@ -1,95 +1,74 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Teacher Dashboard - Quiz App</title>
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
-</head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <h1>Teacher Dashboard</h1>
-        <p>Welcome, {{ auth()->user()->name }}! This is a demo teacher dashboard.</p>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="btn btn-danger">Logout</button>
-        </form>
-    </div>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-</body>
-</html> -->
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Teacher Dashboard - Quiz App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Papers - Quiz App</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
 </head>
 <body class="bg-light">
     <div class="container mt-5">
-        <!-- Header Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Teacher Dashboard</h1>
-            <form method="POST" action="{{ route('logout') }}" class="m-0">
-                @csrf
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
+            <h1>Question Papers</h1>
+            <div>
+                <a href="{{ route('teacher_dashboard') }}" class="btn btn-secondary me-2">Back to Dashboard</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paperDetailsModal">
+                    Create New Paper
+                </button>
+            </div>
         </div>
 
-        <!-- Messages Section -->
-        <div class="messages mb-4">
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-
+        @if($papers->isEmpty())
             <div class="alert alert-info">
-                Welcome, {{ auth()->user()->name }}!
+                No question papers created yet.
             </div>
-        </div>
-
-        <!-- Main Actions -->
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Create Paper</h5>
-                        <p class="card-text">Create your quiz questions here.</p>
-                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paperDetailsModal">
-                            <i class="bi bi-plus-circle"></i> Create Question Paper
-                        </button>
-                    </div>
-                </div>
+        @else
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Paper Name</th>
+                            <th>Duration</th>
+                            <th>Total Marks</th>
+                            <th>Questions</th>
+                            <th>Exam Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($papers as $paper)
+                            <tr>
+                                <td>{{ $paper->paper_name }}</td>
+                                <td>{{ $paper->duration }} minutes</td>
+                                <td>{{ $paper->total_marks }}</td>
+                                <td>{{ $paper->total_mcqs }}</td>
+                                <td>{{ $paper->exam_datetime->format('M d, Y h:i A') }}</td>
+                                <td>
+                                    @if($paper->questions_count < $paper->total_mcqs)
+                                        <form action="{{ route('questions.create') }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <input type="hidden" name="paper_id" value="{{ $paper->id }}">
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                Add Questions
+                                            </button>
+                                        </form>
+                                    @endif
+                                    <a href="{{ route('papers.show', $paper) }}" class="btn btn-sm btn-info">View Paper</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        </div>
-
-        <div class="row mt-4 flex">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Quiz Management</h5>
-                        <p class="card-text">manage your quiz questions here.</p>
-                         <a href="{{ route('papers.index') }}" class="btn btn-secondary">
-                            <i class="bi bi-plus-circle"></i> Manage Question Paper
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
+
 
      <!-- Paper Details Modal -->
     <div class="modal fade" id="paperDetailsModal" tabindex="-1" aria-labelledby="paperDetailsModalLabel" aria-hidden="true">
