@@ -76,9 +76,13 @@ class QuestionController extends Controller
         // Create and save the question
         $question = new Question();
         $question->question_text = $validated['question_text'];
-        $question->options = json_encode($validated['options']);
-        $question->correct_answer = $validated['correct_answer'];
-        $question->user_id = auth()->id();
+        $question->option_a = $validated['options'][0];
+        $question->option_b = $validated['options'][1];
+        $question->option_c = $validated['options'][2];
+        $question->option_d = $validated['options'][3];
+        $correctMap = ['1' => 'a', '2' => 'b', '3' => 'c', '4' => 'd'];
+        $question->correct_answer = $correctMap[$validated['correct_answer']];
+        $question->marks = 1;
         $question->paper_id = $paper_id;
         $question->save();
 
