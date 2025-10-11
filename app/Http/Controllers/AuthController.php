@@ -30,6 +30,7 @@ class AuthController extends Controller
                 return redirect()->intended(route('student.dashboard'));
             }
             return redirect()->intended('/login');
+            
         }
 
         return back()->withErrors([
@@ -64,7 +65,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('login')->with('success', 'Registration successful! Please login.');
+        return view('auth.login');
     }
 
     public function showTeacherRegister()
@@ -89,7 +90,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('login')->with('success', 'Registration successful! Please login.');
+        return view('auth.login');
     }
 
     public function logout(Request $request)

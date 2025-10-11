@@ -25,7 +25,7 @@ class QuestionController extends Controller
         }
 
         // Calculate current count and remaining questions
-        $currentCount = Question::where('id', $paper_id)->count();
+        $currentCount = Question::where('paper_id', $paper_id)->count();
         $remainingQuestions = $paper->total_mcqs - $currentCount;
 
         // Redirect if all questions are added
@@ -56,7 +56,7 @@ class QuestionController extends Controller
         }
 
         // Check remaining questions
-        $currentCount = Question::where('id', $paper_id)->count();
+        $currentCount = Question::where('paper_id', $paper_id)->count();
         $remainingQuestions = $paper->total_mcqs - $currentCount;
 
         if ($remainingQuestions <= 0) {
@@ -86,7 +86,6 @@ class QuestionController extends Controller
             '3' => 'c',
             '4' => 'd',
         };
-        $question->user_id = auth()->id();
         $question->paper_id = $paper_id;
         $question->save();
 

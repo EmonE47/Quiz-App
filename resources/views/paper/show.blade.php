@@ -20,7 +20,7 @@
             </div>
             <div>
                 <a href="{{ route('papers.index') }}" class="btn btn-secondary">Back to Papers</a>
-                <a href="" class="btn btn-success">View Results</a>
+                <a href="{{ route('papers.scoreboard', ['paper' => $paper->id]) }}" class="btn btn-success">View Results</a>
             </div>
         </div>
 
