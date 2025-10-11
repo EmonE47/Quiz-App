@@ -13,14 +13,14 @@ class QuestionController extends Controller
         // Get paper_id from session
         $paper_id = session('current_paper_id');
         if (!$paper_id) {
-            return redirect()->route('teacher.dashboard')
+            return redirect()->route('teacher_dashboard')
                 ->with('error', 'Please create/select a paper first.');
         }
 
         // Find the paper
         $paper = Paper::find($paper_id);
         if (!$paper) {
-            return redirect()->route('teacher.dashboard')
+            return redirect()->route('teacher_dashboard')
                 ->with('error', 'Paper not found.');
         }
 
@@ -31,7 +31,7 @@ class QuestionController extends Controller
         // Redirect if all questions are added
         if ($remainingQuestions <= 0) {
             session()->forget('current_paper_id');
-            return redirect()->route('teacher.dashboard')
+            return redirect()->route('teacher_dashboard')
                 ->with('success', 'All questions have been added to this paper.');
         }
 
@@ -51,7 +51,7 @@ class QuestionController extends Controller
         // Find the paper
         $paper = Paper::find($paper_id);
         if (!$paper) {
-            return redirect()->route('teacher.dashboard')
+            return redirect()->route('teacher_dashboard')
                 ->with('error', 'Paper not found.');
         }
 
@@ -61,7 +61,7 @@ class QuestionController extends Controller
 
         if ($remainingQuestions <= 0) {
             session()->forget('current_paper_id');
-            return redirect()->route('teacher.dashboard')
+            return redirect()->route('teacher_dashboard')
                 ->with('success', 'All questions have been added to this paper.');
         }
 
