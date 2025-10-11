@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
     Route::post('/papers', [PaperController::class, 'store'])->name('paper.store');
     Route::get('/papers', [PaperController::class, 'index'])->name('papers.index');
+    Route::get('/papers/{paper}', [PaperController::class, 'show'])->name('papers.show');
 });
 
 Route::get('/teacher-dashboard', function () {

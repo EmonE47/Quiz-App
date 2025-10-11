@@ -34,4 +34,17 @@ class PaperController extends Controller
 
         return view('paper.index', compact('papers'));
     }
+
+    public function show(Paper $paper)
+    {
+        // Check if the paper belongs to the logged-in teacher
+        if ($paper->user_id !== auth()->id()) {
+            return redirect()->route('papers.index')->with('error', 'Unauthorized access');
+        }
+
+        // Load the questions relationship
+        $paper->load('questions');
+
+        return view('paper.show', compact('paper'));
+    }
 }

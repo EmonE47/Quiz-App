@@ -59,7 +59,7 @@
                                             </button>
                                         </form>
                                     @endif
-                                    <a href="#" class="btn btn-sm btn-info">View</a>
+                                    <a href="{{ route('papers.show', $paper) }}" class="btn btn-sm btn-info">View Paper</a>
                                 </td>
                             </tr>
                         @endforeach
