@@ -1,0 +1,7 @@
+- [x] Uncomment POST /login route in routes/web.php
+- [x] Remove duplicate /teacher-dashboard closure route in routes/web.php
+- [x] Change route name for /teacher-dashboard to 'teacher_dashboard' in routes/web.php
+- [x] Add middleware('auth') to /teacher-dashboard and /student-dashboard routes in routes/web.php
+- [x] Update register method in AuthController.php to redirect to /student-dashboard
+- [x] Update registerTeacher method in AuthController.php to redirect to /teacher-dashboard
+- [x] Update showStudentDashboard method in AuthController.php to use 'Student_Dashboard' view
