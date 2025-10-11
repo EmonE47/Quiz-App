@@ -66,8 +66,8 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Quiz Management</h5>
-                        <p class="card-text">Create and manage your quiz questions here.</p>
+                        <h5 class="card-title">Create Paper</h5>
+                        <p class="card-text">Create your quiz questions here.</p>
                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paperDetailsModal">
                             <i class="bi bi-plus-circle"></i> Create Question Paper
                         </button>
@@ -81,10 +81,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Quiz Management</h5>
-                        <p class="card-text">Create and manage your quiz questions here.</p>
-                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paperDetailsModal">
-                            <i class="bi bi-plus-circle"></i> Create Question Paper
-                        </button>
+                        <p class="card-text">manage your quiz questions here.</p>
+                         <a href="{{ route('papers.index') }}" class="btn btn-secondary">
+                            <i class="bi bi-plus-circle"></i> Manage Question Paper
+                        </a>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             if ($user->role == 1) {
-                return redirect()->intended(route('teacher.dashboard'));
+                return redirect()->intended(route('teacher_dashboard'));
             } elseif ($user->role == 2) {
                 return redirect()->intended(route('student.dashboard'));
             }
