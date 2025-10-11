@@ -39,10 +39,10 @@
                     @foreach($results as $index => $result)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $result->student->name ?? 'Unknown' }}</td>
-                            <td>{{ $result->student->email ?? 'N/A' }}</td>
-                            <td>{{ $result->score }}</td>
-                            <td>{{ number_format(($result->score / $paper->total_marks) * 100, 2) }}%</td>
+                            <td>{{ $result->user->name ?? 'Unknown' }}</td>
+                            <td>{{ $result->user->email ?? 'N/A' }}</td>
+                            <td>{{ $result->obtained_marks }}</td>
+                            <td>{{ $result->percentage }}%</td>
                             <td>{{ $result->created_at->format('M d, Y h:i A') }}</td>
                         </tr>
                     @endforeach
