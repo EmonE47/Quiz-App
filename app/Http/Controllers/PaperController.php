@@ -26,4 +26,12 @@ class PaperController extends Controller
         return redirect()->route('questions.create')
             ->with('success', 'Paper details saved. Now add your questions.');
     }
+    public function index()
+    {
+        $papers = Paper::where('user_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('paper.index', compact('papers'));
+    }
 }

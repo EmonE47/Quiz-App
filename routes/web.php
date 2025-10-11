@@ -23,13 +23,18 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
 Route::middleware(['auth'])->group(function () {
     Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
+    Route::post('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
     Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
     Route::post('/papers', [PaperController::class, 'store'])->name('paper.store');
+    Route::get('/papers', [PaperController::class, 'index'])->name('papers.index');
 });
 
 Route::get('/teacher-dashboard', function () {
     return view('teacher_dashboard');
 })->middleware('auth')->name('teacher_dashboard');
+
+
+ Route::get('/papers', [PaperController::class, 'index'])->name('papers.index');
 
 // Route::middleware(['auth'])->group(function () {
 //     // ...existing routes...
