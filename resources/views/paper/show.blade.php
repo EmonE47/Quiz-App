@@ -38,11 +38,18 @@
                             <p class="mb-3">{{ $question->question_text }}</p>
                             
                             <div class="options ms-4">
-                                @foreach(json_decode($question->options) as $optionIndex => $option)
+                                @php
+                                    $options = [
+                                        'a' => $question->option_a,
+                                        'b' => $question->option_b,
+                                        'c' => $question->option_c,
+                                        'd' => $question->option_d,
+                                    ];
+                                @endphp
+
+                                @foreach($options as $key => $option)
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" 
-                                               disabled
-                                               {{ $question->correct_answer == ($optionIndex + 1) ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" disabled {{ $question->correct_answer === $key ? 'checked' : '' }}>
                                         <label class="form-check-label">
                                             {{ $option }}
                                         </label>
