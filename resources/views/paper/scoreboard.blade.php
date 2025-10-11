@@ -16,7 +16,11 @@
             </p>
         </div>
         <div>
-            <a href="{{ route('papers.index') }}" class="btn btn-secondary">Back to Papers</a>
+            @if(auth()->user()->role == 1)
+                <a href="{{ route('papers.index') }}" class="btn btn-secondary">Back to Papers</a>
+            @else
+                <a href="{{ route('student.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            @endif
         </div>
     </div>
 
