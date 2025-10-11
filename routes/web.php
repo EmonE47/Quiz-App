@@ -14,8 +14,8 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/teacher-register', [AuthController::class, 'showTeacherRegister'])->name('teacher.register');
 Route::post('/teacher-register', [AuthController::class, 'registerTeacher']);
-Route::get('/teacher-dashboard', [AuthController::class, 'showTeacherDashboard'])->name('teacher.dashboard');
-Route::get('/student-dashboard', [AuthController::class, 'showStudentDashboard'])->name('student.dashboard');
+Route::get('/teacher-dashboard', [AuthController::class, 'showTeacherDashboard'])->middleware('auth')->name('teacher_dashboard');
+Route::get('/student-dashboard', [AuthController::class, 'showStudentDashboard'])->middleware('auth')->name('student.dashboard');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Soykot
@@ -25,7 +25,4 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
 });
 
-Route::get('/teacher-dashboard', function () {
-    return view('teacher_dashboard');
-})->middleware('auth')->name('teacher_dashboard');
 //ending

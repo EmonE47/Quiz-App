@@ -29,8 +29,8 @@ class AuthController extends Controller
             } elseif ($user->role == 2) {
                 return redirect()->intended('/student-dashboard');
             }
-            return redirect()->intended('/login');
-            
+            return redirect()->intended('/');
+
         }
 
         return back()->withErrors([
@@ -43,7 +43,7 @@ class AuthController extends Controller
     }
     public function showStudentDashboard()
     {
-        return view('student_dashboard');
+        return view('Student_Dashboard');
     }
     public function showRegister()
     {
@@ -67,7 +67,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return view('auth.login');
+        return redirect('/student-dashboard');
     }
 
     public function showTeacherRegister()
@@ -92,7 +92,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return view('auth.login');
+        return redirect('/teacher-dashboard');
     }
 
     public function logout(Request $request)
