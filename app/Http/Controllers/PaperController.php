@@ -47,4 +47,15 @@ class PaperController extends Controller
 
         return view('paper.show', compact('paper'));
     }
+
+    public function scoreboard($paper_id)
+    {
+        $paper = \App\Models\Paper::with('results.student')->findOrFail($paper_id);
+
+        // Sort results by score descending
+        $results = $paper->results->sortByDesc('score');
+
+        return view('paper.scoreboard', compact('paper', 'results'));
+    }
+
 }

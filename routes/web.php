@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PaperController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ResultController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -64,3 +65,6 @@ Route::middleware(['auth'])->group(function () {
     // Result Route
     Route::get('/result/{paper}', [StudentController::class, 'showResult'])->name('student.result');
 });
+
+Route::get('/papers/{paper}/scoreboard', [App\Http\Controllers\ResultController::class, 'showScoreboard'])
+    ->name('papers.scoreboard');
