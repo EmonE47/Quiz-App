@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PaperController;
+use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     return view('auth.login');
