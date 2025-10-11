@@ -40,11 +40,21 @@
             <h1 class="text-center mb-4">🎉 Exam Completed!</h1>
             <h3 class="text-center mb-4">{{ $paper->paper_name }}</h3>
             
-            <div class="row">
+            <div class="d-flex justify-content-center text-center">
                 <div class="col-md-3">
-                    <div class="stat-card bg-white text-dark">
+                    <div class="stat-card bg-white text-dark p-3 rounded shadow-sm">
                         <h2 class="text-success">{{ $result->obtained_marks }}</h2>
                         <p class="mb-0">Obtained Marks</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+            </div>
+
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ route('student.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            <a href="{{ route('papers.scoreboard', $paper->id) }}" class="btn btn-primary">View Scoreboard</a>
+        </div>
+    </div>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
