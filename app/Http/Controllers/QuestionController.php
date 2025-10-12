@@ -87,6 +87,7 @@ class QuestionController extends Controller
             '4' => 'd',
         };
         $question->paper_id = $paper_id;
+        $question->user_id = auth()->id();
         $question->save();
 
         // Check if this was the last question
