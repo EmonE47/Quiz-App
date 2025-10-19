@@ -19,7 +19,7 @@ class PaperController extends Controller
         ]);
 
         // Convert exam_datetime from Bangladesh time to UTC for storage
-        $validated['exam_datetime'] = Carbon::parse($validated['exam_datetime'], 'Asia/Dhaka')->utc();
+        $validated['exam_datetime'] = Carbon::parse($validated['exam_datetime'])->utc();
 
         $paper = new Paper($validated);
         $paper->user_id = auth()->id();
